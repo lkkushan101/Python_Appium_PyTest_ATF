@@ -1,0 +1,350 @@
+<html>
+        	<head>
+        	    <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+        		<script type="text/javascript" src="./css/jquery.tbltree.js"></script>
+        		<link type="text/css" href="css/jquery.tbltree.css" rel="stylesheet">
+        		<script type="text/javascript" src="./css/jquery.cookie.js"></script>
+				<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        		<script type="text/javascript">
+        		  $(function() {
+        			 // initialize with default options
+        			$( "#table1" ).tbltree();
+        		  });
+				  google.charts.load("current", {packages:["corechart"]});
+				  google.charts.setOnLoadCallback(drawChart);
+				  function openTab(evt, cityName) {
+					  var i, tabcontent, tablinks;
+					  tabcontent = document.getElementsByClassName("maincontent");
+					  for (i = 0; i < tabcontent.length; i++) {
+						tabcontent[i].style.display = "none";
+					  }
+					  tablinks = document.getElementsByClassName("tablinks");
+					  for (i = 0; i < tablinks.length; i++) {
+						tablinks[i].className = tablinks[i].className.replace(" active", "");
+					  }
+					  document.getElementById(cityName).style.display = "";
+					  evt.currentTarget.className += " active";
+				}
+				function load(){
+				document.getElementById("defaultOpen").click();
+				}
+				function calcFail()
+				{
+
+					var elements = document.getElementsByClassName("fail");
+					var names = '';
+					for(var i=0; i<elements.length; i++) {
+						names = elements[i].getAttribute('parentid');
+						document.getElementById(names).innerHTML="<img src='css/images/fail_4.png'/>&nbsp FAIL";
+						document.getElementById(names).setAttribute("class", "testFAIL"); 
+					}
+
+				}
+				function drawChart() {
+				    var pass  = document.getElementsByClassName("testPASS").length
+					var fail  = document.getElementsByClassName("testFAIL").length
+					//var norun = 1
+					var data = google.visualization.arrayToDataTable([
+					  ['Task', 'Hours per Day'],
+					  ['PASS',     pass],
+					  ['FAIL',      fail],
+					//  ['No Run',   norun],
+
+					]);
+
+					var options = {
+
+					  pieHole: 0.5,
+
+					  colors: ['green', '#FF0000', '#3498db']
+					};
+
+					var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+					chart.draw(data, options);
+				  }
+        		</script>
+        		<style>
+					#sidebar {
+						width: 15%;
+						height: 100%;
+						position: fixed;
+						background:  #454545; /*#2f323a*/
+						left: 0;
+					}
+
+					.nav-collapse.collapse {
+						display: inline;
+					}
+
+					ul.sidebar-menu , ul.sidebar-menu li ul.sub{
+						margin: -2px 0 0;
+						padding: 0;
+					}
+
+					ul.sidebar-menu {
+						margin-top: 75px;
+					}
+
+					#sidebar > ul > li > ul.sub {
+						display: none;
+					}
+
+					#sidebar > ul > li.active > ul.sub, #sidebar > ul > li > ul.sub > li > a {
+						display: block;
+					}
+
+					ul.sidebar-menu li ul.sub li{
+						background: white;
+						margin-bottom: 0;
+						margin-left: 0;
+						margin-right: 0;
+					}
+
+					ul.sidebar-menu li ul.sub li:last-child{
+						border-radius: 0 0 4px 4px;
+						-webkit-border-radius: 0 0 4px 4px;
+					}
+
+					ul.sidebar-menu li ul.sub li a {
+						font-size: 12px;
+						padding: 6px 0;
+						line-height: 35px;
+						height: 35px;
+						-webkit-transition: all 0.3s ease;
+						-moz-transition: all 0.3s ease;
+						-o-transition: all 0.3s ease;
+						-ms-transition: all 0.3s ease;
+						transition: all 0.3s ease;
+						color: #fcfffa;
+					}
+
+					ul.sidebar-menu li ul.sub li a:hover {
+						color: white;
+						background: transparent;
+					}
+
+					ul.sidebar-menu li ul.sub li.active a {
+						color: white;
+						-webkit-transition: all 0.3s ease;
+						-moz-transition: all 0.3s ease;
+						-o-transition: all 0.3s ease;
+						-ms-transition: all 0.3s ease;
+						transition: all 0.3s ease;
+						display: block;
+					}
+
+					ul.sidebar-menu li{
+						line-height: 20px !important;
+						margin-bottom: 5px;
+						margin-left:0px;
+						margin-right:10px;
+					}
+
+					ul.sidebar-menu li.sub-menu{
+						line-height: 15px;
+					}
+
+					ul.sidebar-menu li a span{
+						display: inline-block;
+						color: white;
+					}
+
+					ul.sidebar-menu li a{
+						color: #fcfffa;
+						text-decoration: none;
+						display: block;
+						padding: 15px 10px 15px 10px;
+						font-size: 12px;
+						font-color:white
+						outline: none;
+						-webkit-transition: all 0.3s ease;
+						-moz-transition: all 0.3s ease;
+						-o-transition: all 0.3s ease;
+						-ms-transition: all 0.3s ease;
+						transition: all 0.3s ease;
+					}
+
+					ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+						background: #999999;
+						color: #fff;
+						display: block;
+
+						-webkit-transition: all 0.3s ease;
+						-moz-transition: all 0.3s ease;
+						-o-transition: all 0.3s ease;
+						-ms-transition: all 0.3s ease;
+						transition: all 0.3s ease;
+					}
+
+
+					ul.sidebar-menu li a i {
+						font-size: 15px;
+						padding-right: 6px;
+					}
+
+					ul.sidebar-menu li a:hover i, ul.sidebar-menu li a:focus i {
+						color: #fff;
+					}
+
+					ul.sidebar-menu li a.active i {
+						color: #fff;
+					}
+
+					 #rcorners2 {
+                      border-radius: 25px;
+                      border: 4px solid #22242a; /*  #73AD21*/
+                      box-shadow: 5px
+                      padding: 0px; 
+                      width: 80%;  
+                    }
+                    #table1 {
+
+                      box-shadow: 5px
+                      padding: 0px; 
+                      width:70%;
+					  isplay: inline-block;
+
+                    }
+                     #fail{
+					  align:center
+					}
+					.img-circle {
+
+						border-radius: 50%;
+							border-top-left-radius: 50%;
+							border-top-right-radius: 50%;
+							border-bottom-right-radius: 50%;
+							border-bottom-left-radius: 50%;
+					}
+
+					.header{
+
+						background: #454545;
+						border-bottom: 1px solid #454545;
+						height: 3%;
+						position: fixed;
+						left: 0;
+						top: 0;
+						right: 0;
+						z-index: 1002;
+					}
+					.logo{
+					   background: #4ECDC4;
+					   size:12px;
+					}
+					.logo1{
+					   background: White;
+					   size:13px;
+					}
+					.container{
+					  /* background: white;*/
+					  background : #f1f1f1;
+					}
+					.maincontent{
+					  display: inline-block;
+					 margin-top: 1%;
+
+					  /* padding-left: 1px;*/
+					  padding-right: 15px;
+					  padding-bottom: 15px;
+					  padding-top: 0px;
+					  width: 100%;
+					}
+					#detailedreport{
+					  padding-left: 2px;
+
+					}
+                    #dashboard{
+					  padding-top: 0px;
+					}
+                    .data{
+					  width : 100px;
+					}
+                    #EnvDet{
+					  width: 320px;
+					  padding: 10px;
+					  border: 5px solid gray;
+					  margin: 0;
+					}
+					#ExeDet{
+					  width: 320px;
+					  padding-left: 10%;
+					  border: 5px solid gray;
+					  margin: 0;
+					}
+					#th{
+					   font-size: 23px;
+					}					
+        		</style>
+        	</head>
+
+        <body onload="load();calcFail()" >
+
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+
+
+    </header>
+		  <div id="sidebar" class="nav-collapse ">
+				<!-- sidebar menu start-->
+				<ul class="sidebar-menu" id="nav-accordion">
+				  <p class="centered" align="Center"><img src="css/images/logo.png" class="img-circle" width="80px"></p>
+				  <p align="Center"><b><font size=6 color="White" >HTMLLogger</font></b></p>
+				  <li class="mt">
+					<a class="tablinks" onclick="openTab(event, 'dashboard')" id="defaultOpen">
+					  <i class="fa fa-dashboard"></i>
+					  <span >Dashboard</span>
+					  </a>
+				  </li>
+				  <li class="sub-menu">
+					<a onclick="openTab(event, 'detailedreport')" class="tablinks">
+					  <i class="fa fa-desktop"></i>
+					  <span>Detailed Report</span>
+					  </a>
+				  </li>
+				  <li class="sub-menu">
+					<a onclick="openTab(event, 'envdetails')" class="tablinks">
+					  <i class="fa fa-cogs"></i>
+					  <span>Environment Details</span>
+					  </a>
+				  </li>
+				</ul>			
+      </div>
+       <div id="envdetails" class="maincontent" style="width: 900px; height: 500px; padding-left: 15%;" >
+	      <p><h1  id = 'EnvDet'><b>Environment Details</b></h1></p>
+		  <p><b> OS Name : </b>Windows</p>
+		  <p><b> OS Release : </b></p>
+		  <p><b> Machine Name :</b>DDT</p>
+		  <p><b> User Name : </b>user </p>
+	  </div>
+	  <div id="dashboard" class="maincontent" style="padding-left: 15%;">
+	      <p><h1  id = 'EnvDet'><b>Summary</b></h1></p>
+		  <div id="donutchart" style="width: 700px; height:500px;"></div>
+	  </div>
+
+      <div class="maincontent" id="detailedreport">
+
+          <table id="table1" border=1 align=Center class="container">
+          <tr>
+          <th id='th'>Test Case Name</th><th id='th' >Status</th><th id='th'>Time </th>
+  </tr>
+                      <tr row-id='130593' parent-id=''>
+                        <td>Logged into the eribank app</td><td class="data"><img src="css/images/pass_4.png"/>&nbsp PASS</td><td class="data">11:23:30</td>
+                      </tr>
+                    
+                      <tr row-id='70004' parent-id=''>
+                        <td>Navigated into the make payment screen</td><td class="data"><img src="css/images/pass_4.png"/>&nbsp PASS</td><td class="data">11:23:34</td>
+                      </tr>
+                    
